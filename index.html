@@ -5,11 +5,11 @@ venue: Coastal Institute, University of Rhode Island
 address: Hazard Conference Room, 215 South Ferry Road, Narragansett, RI 02882
 country: United-States
 humandate: Jan 13-14, 2014
-humantime: 9:00 am - 4:00 pm
+humantime: 8:00 am - 4:00 pm
 startdate: 2014-01-13
 enddate: 2014-01-14
 latlng: 41.492635,-71.422294
-registration: open
+registration: restricted
 instructor: ["Patrick Fuller", "Ivan Gonzalez"]
 contact: igonzalez@mailaps.org
 ---
@@ -17,7 +17,7 @@ contact: igonzalez@mailaps.org
 {% include bootcamps/what.html %}
 {% include bootcamps/who.html %}
 {% include bootcamps/requirements.html %}
-{% include bootcamps/python.html %}
+{% include bootcamps/r.html %}
 {% include bootcamps/contact.html %}
 
 <hr/>
@@ -31,7 +31,7 @@ contact: igonzalez@mailaps.org
   </div>
   <div class="span6">
     {% include setup/overview-git.html %}
-    {% include setup/overview-python.html %}
+    {% include setup/overview-r.html %}
   </div>
 </div>
 
@@ -52,23 +52,6 @@ contact: igonzalez@mailaps.org
       <li>{% include guide-shell/find/title.md %}</li>
     </ul>
   </div>
-  <div class="span6">
-    <h3><a href="lessons/swc-db/tutorial.html">Databases</a></h3>
-    <ul>
-      <li>{% include guide-db/select/title.md %}</li>
-      <li>{% include guide-db/distinct/title.md %}</li>
-      <li>{% include guide-db/filter/title.md %}</li>
-      <li>{% include guide-db/calc/title.md %}</li>
-      <li>{% include guide-db/sort/title.md %}</li>
-      <li>{% include guide-db/null/title.md %}</li>
-      <li>{% include guide-db/aggregate/title.md %}</li>
-      <li>{% include guide-db/grouping/title.md %}</li>
-      <li>{% include guide-db/join/title.md %}</li>
-      <li>{% include guide-db/create/title.md %}</li>
-      <li>{% include guide-db/transactions/title.md %}</li>
-      <li>{% include guide-db/programming/title.md %}</li>
-    </ul>
-  </div>
 </div>
 
 <hr/>
@@ -77,6 +60,4 @@ contact: igonzalez@mailaps.org
 
 <ul>
   <li><a href="{{page.root}}/lessons/ref/shell.html">The Unix Shell</a></li>
-  <li><a href="{{page.root}}/lessons/ref/python.html">Python</a></li>
-  <li><a href="{{page.root}}/lessons/ref/sql.html">SQL</a></li>
 </ul>
