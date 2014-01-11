@@ -1,36 +1,52 @@
 Software Carpentry bootcamp at University of Rhode Island &amp; EPA
 ===================================================================
 
-This is the repo for the Software Carpentry bootcamp at the Coastal Institute
-of the University of Rhode Island during January 13-14, 2014.
-
 ![SWC logo](http://software-carpentry.org/img/software-carpentry-banner.png)
 
-## Tentative Schedule
-**Day 1 schedule**
+This is the repo for the Software Carpentry R Bootcamp at the University of Rhode Island's Coastal Institute during January 13-14, 2014.
 
-| Topic |   Time slot |
-| ----- | ----------- |
-| Welcome and introduction   |  9 - 9:20 |
-| [Introduction to scientific programming with R](https://github.com/swcarpentry/2013-10-09-canberra/tree/master/01-R-basics#introduction-to-the-r-language-and-r-ecosystem)  |  9:20 - 10 |
-| Break   | 10 - 10:20 |
-| [Writing functions and other control structures](https://github.com/swcarpentry/2013-10-09-canberra/tree/master/02-functions#functions-and-control-structures)     | 10:20 - 12 |
-| Lunch  |  12 - 1 |
-| [Data manipulation with R](https://github.com/swcarpentry/2013-10-09-canberra/tree/master/03-data-manipulation#section-03---data-manipulation-in-r) | 1 - 2 |
-| Break  |  2 - 2:20 |
-| [Writing functions and other control structures (cont)](https://github.com/swcarpentry/2013-10-09-canberra/tree/master/02-functions#functions-and-control-structures)  |  2:20 - 3 |
-| Break   | 3 - 3:15 |
-| [Data visualization in R](https://github.com/swcarpentry/2013-10-09-canberra/tree/master/04-data-visualization#data-visualization-with-ggplot2) | 3:15 - 5 |
+## Instructors
+ - Patrick Fuller
+ - Ivan Gonzalez
 
-**Day 2 schedule**
+## Helpers
+ - Jeff Hollister
+ - Betty Kreakie
+ - Bryan Milstead
 
-| Topic |   Time slot |
-| ----- | ----------- |
-| [Basics of the shell](https://github.com/swcarpentry/2013-10-09-canberra/tree/master/05-shell#basic-shell-commands) | 9 - 10  |
-| [Version Control with Git](https://github.com/swcarpentry/2013-10-09-canberra/tree/master/06-version-control#introduction-to-git)  |  10 - 12 |
-| Lunch |  12-1 |
-| Git continued |  1 - 1:45 |
-| <strike>[Testing- More data manipulation](https://github.com/swcarpentry/2013-10-09-canberra/tree/master/07-testing#software-testing)</strike> |1:45 - 2:30 |
-| Break |  2:30 - 2:45 |
-~~| <strike>[Reproducible workflows with `R` (Reproducible documents with R and `knitr`)](https://github.com/swcarpentry/2013-10-09-canberra/tree/master/08-reproducible-research#reproducible-research-and-make) time permitting</strike> | 2:45 - 4:30 |~~
-| Summary and wrap up | 4:30 - 4:45 |
+## Bootcamp Schedule
+
+#### MONDAY JANUARY 13, 2014
+
+| Topic | Date | Time | Instructor |
+| ----- | ---- | ---- | ---------- |
+| Welcome and Introduction | 01/13/2014 | 8:00 AM - 8:10 AM | Jeff Hollister |
+| Logistics and Software Test | 01/13/2014 | 8:10 AM - 8:30 AM | Ivan Gonzalez |
+| [Using the Shell](#) |  01/13/2014 | 8:30 AM - 10:00 AM | Patrick Fuller |
+| _BREAK_ | 01/13/2014 | 10:00 AM - 10:15 AM | |
+| [Introduction to R and RStudio](https://github.com/jhollist/2014-01-13-uri/blob/gh-pages/rLessons/Intro.md)| 01/13/2014 | 10:15 AM - 12:00 PM | Patrick Fuller |
+| _LUNCH_ | 01/13/2014 | 12:00 PM - 12:45 PM | |
+| [Dealing with Data in R](https://github.com/jhollist/2014-01-13-uri/blob/gh-pages/rLessons/Data.md) | 01/13/2014 | 12:45 PM - 2:30 PM | Jeff Hollister |
+| _BREAK_ | 01/13/2014 | 2:30 PM - 2:45 PM | |
+| [R Functions](https://github.com/jhollist/2014-01-13-uri/blob/gh-pages/rLessons/Functions.md)| 01/13/2014 | 2:45 PM - 4:00 PM | Jeff Hollister |
+
+#### TUESDAY JANUARY 14, 2014
+
+| Topic | Date | Time | Instructor |
+| ----- | ---- | ---- | ---------- |
+| [Git](#) |  01/14/2014 | 8:00 AM - 10:00 AM | Ivan Gonzalez |
+| _BREAK_ | 01/14/2014 | 10:00 AM - 10:15 AM | |
+| [Git and GitHub](#) |  01/14/2014 | 10:15 AM - 12:00 PM | Ivan Gonzalez |
+| _LUNCH_ |01/14/2014 | 12:00 PM - 12:45 PM | |
+| [Testing and Debugging with R](#) | 01/14/2014 | 12:45 PM - 2:30 PM | Ivan Gonzalez |
+| _BREAK_ | 01/14/2014 | 2:30 PM - 2:45 PM | |
+| [Introduction to Databases](#) | 01/14/2014 | 2:45 PM - 2:30 PM | Patrick Fuller |
+
+#### WEDNESDAY JANUARY 15, 2014
+
+| Topic | Date | Time | Instructor |
+| ----- | ---- | ---- | ---------- |
+| [Intro to Data Viz in R](https://github.com/jhollist/2014-01-13-uri/blob/gh-pages/rLessons/DataViz.md)| 01/15/2014 | 8:00 AM - 10:00 AM | Jeff Hollister |
+| _BREAK_ | 01/15/2014 | 10:00 AM - 10:45 AM | |
+| Wrap-up and next steps | 01/15/2014 |10:45 AM - 12:00 PM | |
+| _LUNCH_ |01/14/2014 | 12:00 PM - 12:45 PM | |
