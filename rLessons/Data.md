@@ -568,7 +568,7 @@ dt <- readLines("messy_data.txt")
 ### Files from the web
 
 ```
-url <- "http://github.com/iglpdc/gh-pages/rLessons/NLA2007_Secchi_20091008.csv"
+url <- "https://raw2.github.com/iglpdc/2014-01-13-uri/gh-pages/rLessons/NLA2007_Secchi_20091008.csv"
 my_data <- read.csv(url, header = TRUE)
 ```
 
