@@ -700,12 +700,12 @@ iris_data &lt;- readRDS(&quot;tgac_iris.rds&quot;)
 
 <h3>Easy to store compressed files to save space:</h3>
 
-<pre><code class="r">write.csv(diamonds, file = bzfile(&quot;diamonds.csv.bz2&quot;), row.names = FALSE)
+<pre><code class="r">write.csv(iris, file = bzfile(&quot;iris.csv.bz2&quot;), row.names = FALSE)
 </code></pre>
 
 <h3>Reading is even easier:</h3>
 
-<pre><code class="r">diamonds5 &lt;- read.csv(&quot;diamonds.csv.bz2&quot;)
+<pre><code class="r">iris2 &lt;- read.csv(&quot;iris.csv.bz2&quot;)
 </code></pre>
 
 <p>Files stored with <code>saveRDS()</code> are automatically compressed.</p>
@@ -718,12 +718,12 @@ iris_data &lt;- readRDS(&quot;tgac_iris.rds&quot;)
 
 <pre><code class="r"># If not already installed install.packages(&#39;RSQLite&#39;)
 library(RSQLite)
-con &lt;- dbConnect(dbDriver(&quot;SQLite&quot;), dbname = &quot;diamonds.sqlite&quot;)
-dbWriteTable(con, &quot;tDiamonds&quot;, diamonds5)
-list.files(pattern = &quot;^dia&quot;)
+con &lt;- dbConnect(dbDriver(&quot;SQLite&quot;), dbname = &quot;iris.sqlite&quot;)
+dbWriteTable(con, &quot;tIris&quot;, iris2)
+list.files(pattern = &quot;^iri&quot;)
 # And to prove it did someting read the new table back in
-sqliteDiamonds &lt;- dbReadTable(con, &quot;tDiamonds&quot;)
-head(sqliteDiamonds)
+sqliteIris &lt;- dbReadTable(con, &quot;tIris&quot;)
+head(sqliteIris)
 dbDisconnect(con)
 </code></pre>
 
