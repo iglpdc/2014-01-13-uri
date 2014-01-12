@@ -538,14 +538,14 @@ write.csv(iris, file = "tgac_iris.csv", row.names = FALSE)
 ### Easy to store compressed files to save space:
 
 ```{r eval=FALSE}
-write.csv(diamonds, file = bzfile("diamonds.csv.bz2"),
+write.csv(iris, file = bzfile("iris.csv.bz2"),
   row.names = FALSE)
 ```
 
 ### Reading is even easier:
 
 ```{r eval=FALSE}
-diamonds5 <- read.csv("diamonds.csv.bz2")
+iris2 <- read.csv("iris.csv.bz2")
 ```
 
 Files stored with `saveRDS()` are automatically compressed.
@@ -557,19 +557,19 @@ There are many options for using R to access data stored in a databse.  One simp
 This is a bit more involved, but wanted to show this simply as an example of what is possible.  Skys the limit on what type of database you can use.
 
 ```{r echo=FALSE}
-system("rm diamonds.sqlite")
+system("rm iris.sqlite")
 ```
 
 ```{r eval=FALSE}
 # If not already installed
 # install.packages("RSQLite") 
 library(RSQLite)
-con<-dbConnect(dbDriver("SQLite"),dbname="diamonds.sqlite")
-dbWriteTable(con,"tDiamonds",diamonds5)
-list.files(pattern="^dia")
+con<-dbConnect(dbDriver("SQLite"),dbname="iris.sqlite")
+dbWriteTable(con,"tIris",iris2)
+list.files(pattern="^iri")
 # And to prove it did someting read the new table back in
-sqliteDiamonds<-dbReadTable(con,"tDiamonds")
-head(sqliteDiamonds)
+sqliteIris<-dbReadTable(con,"tIris")
+head(sqliteIris)
 dbDisconnect(con)
 ```
 

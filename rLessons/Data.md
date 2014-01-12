@@ -620,7 +620,7 @@ write.csv(iris, file = "tgac_iris.csv", row.names = FALSE)
 
 
 ```r
-write.csv(diamonds, file = bzfile("diamonds.csv.bz2"), row.names = FALSE)
+write.csv(iris, file = bzfile("iris.csv.bz2"), row.names = FALSE)
 ```
 
 
@@ -628,7 +628,7 @@ write.csv(diamonds, file = bzfile("diamonds.csv.bz2"), row.names = FALSE)
 
 
 ```r
-diamonds5 <- read.csv("diamonds.csv.bz2")
+iris2 <- read.csv("iris.csv.bz2")
 ```
 
 
@@ -647,12 +647,12 @@ This is a bit more involved, but wanted to show this simply as an example of wha
 ```r
 # If not already installed install.packages('RSQLite')
 library(RSQLite)
-con <- dbConnect(dbDriver("SQLite"), dbname = "diamonds.sqlite")
-dbWriteTable(con, "tDiamonds", diamonds5)
-list.files(pattern = "^dia")
+con <- dbConnect(dbDriver("SQLite"), dbname = "iris.sqlite")
+dbWriteTable(con, "tIris", iris2)
+list.files(pattern = "^iri")
 # And to prove it did someting read the new table back in
-sqliteDiamonds <- dbReadTable(con, "tDiamonds")
-head(sqliteDiamonds)
+sqliteIris <- dbReadTable(con, "tIris")
+head(sqliteIris)
 dbDisconnect(con)
 ```
 
