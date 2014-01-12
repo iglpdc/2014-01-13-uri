@@ -175,8 +175,7 @@ ggplot(df, aes(x = x)) + geom_histogram(aes(fill = xf))
 ```
 
 
-Barplots (FIX ME)
-
+Barplots
 
 ```r
 # I am not up-to-speed on reshape2 or plyr.  So for the time-being, melt is
@@ -203,7 +202,7 @@ ggsave(plot = myBarChart, file = "myBarChart.jpg")
 
 
 ## Data Viz Exercise
-Write a documented function that creates a data visualization of the NLA data frame we have been working with.  Use your imagination!  When youa are done and have an image on your screen, raise your hands.  We will pick some favorites and show the rest of the class.
+Write a documented function that creates a data visualization of the NLA data frame we have been working with.  Use your imagination!  When you are done and have an image on your screen, raise your hands.  
 
 # R Data Viz Examples
 

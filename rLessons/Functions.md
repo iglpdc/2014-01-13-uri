@@ -145,7 +145,6 @@ environment(f)
 ```
 
 
-**Question: How do we delete this function from our environment?**
 
 ## More on environments
 Variables defined inside functions exist in a different environment than the global environment. However, if a function is not defined inside one, it will look one level above.
@@ -408,7 +407,7 @@ This loop will only print even numbers and skip over odd numbers. In the afterno
 
 # Documentation
 
-Anyone who has worked with computers at any level for any period of time will attest to the fact that keeping track of your workflow and understanding what was done and why gets problematic quickly.  Tomorrow we will introduce a solution of this that deals with managing multiple versions.  
+Anyone who has worked with computers at any level for any period of time will attest to the fact that keeping track of your workflow and understanding what was done and why gets problematic quickly.  Tomorrow we will introduce a solution of this that deals with managing multiple versions (i.e. git).  
 
 But, at an even more basic level than versioning, is the issue of being able to read a piece of code and understand what it is doing.  The primary solution for creating understandable code is documentation and you already have been doing some of this if you have been using comment tags (`#`).  
 
@@ -429,7 +428,7 @@ x("Documentation is cool!")
 ```
 
 
-These simple comments are likely enought just for scripts, but as you begin to use functions it better to follow a more standard format.  One such format that is widely used in package development is [Roxygen](http://roxygen.org), a literate programming .  Its current implementation in R is with `roxygen2`.  It allows for simple documenting of code and easily converting that code into manual pages.  We won't go that far, but learning to document the basics with Roxygen style comments (`#'`) and tags (`@`) will put you much closer to being able to develop packages.
+These simple comments are likely enough just for scripts, but as you begin to use functions it better to follow a more standard format.  One such format that is widely used in package development is [Roxygen](http://roxygen.org), a literate programming .  Its current implementation in R is with `roxygen2`.  It allows for simple documenting of code and easily converting that code into manual pages.  We won't go that far, but learning to document the basics with Roxygen style comments (`#'`) and tags (`@`) will put you much closer to being able to develop packages.
 
 Roxygen Comment and Tags
 
