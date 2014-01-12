@@ -1,0 +1,50 @@
+Excercise 1 Answers
+-------------------
+  
+#Download data into data frames
+
+First create a character vector to hold the name of the URL
+
+```{r}
+siurl<-"http://water.epa.gov/type/lakes/assessmonitor/lakessurvey/upload/NLA2007_SampledLakeInformation_20091113.csv"
+wqurl<-"http://water.epa.gov/type/lakes/assessmonitor/lakessurvey/upload/NLA2007_WaterQuality_20091123.csv"
+luurl<-"http://water.epa.gov/type/lakes/assessmonitor/lakessurvey/upload/NLA2007_Buffer_Landuse_Metrics_20091022.csv"
+```
+
+Next create data frames, using `read.csv()` to grab the remote file
+
+```{r}
+si<-read.csv(siurl)
+wq<-read.csv(wqurl)
+lu<-read.csv(luurl)
+```
+
+#Rows and columns for water quality and land use
+
+```{r}
+nrow(wq)
+ncol(wq)
+nrow(lu)
+ncol(lu)
+```
+
+#Name and class of the first columns
+
+```{r}
+names(si)[1]
+names(wq)[1]
+names(lu)[1]
+
+class(names(si)[1])
+class(names(wq)[1])
+class(names(lu)[1])
+```
+
+#Mean, min and max
+
+I used `summary()` which gives a bit more info,  `mean()`, `min()`, and `max()` would have also worked.
+
+```{r}
+summary(lu["PCT_DEVELOPED_BUFR"])
+summary(wq["NTL"])
+```
