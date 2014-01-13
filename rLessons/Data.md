@@ -1009,11 +1009,10 @@ In our last exercise, we pulled in three datasets, created data frames from them
 1. Subset your station information data frame so that you only have the following columns: SITE_ID, VISIT_NO, SITE_TYPE, STATE_NAME
 2. Subset your water quality information so that you have: SITE_ID, NTL, PTL, CHLA 
 3. Susbset your landuse data frame so that you have: SITE_ID, PCT_DEVELOPED_BUFR,  PCT_FOREST_BUFR, PCT_AGRIC_BUFR, and PCT_WETLAND_BUFR.
-4. Subset your streamlined verison of station information (created in step 1) so that only the first visit of the probability lakes are returned.  First visits are those records that have a VISIT_NO of 1 and probability lakes are SITE_TYPE of PROB_lake.
-5. Create a single data frame that combines the station information from step 4, the water quality info from step 2, and the landuse information from step 3. 
-6. How many rows and columns in this new data frame?  Is it what you expected?
-7. Calculate the mean, median, min, and max (1st and 3rd quartiles ok too) for each of the data columns.  You can do this many ways, but you have the tools to do it in one, very clean line of code!
-8. Once you are certain your new data frame has all the proper rows and columns, write the data frame out to a .csv file.  We will be using this file as input later, so keep track of where you put it.
+4. Create a single data frame that combines the station information from step 4, the water quality info from step 2, and the landuse information from step 3. 
+5. How many rows and columns in this new data frame?  Is it what you expected?
+6. Calculate the mean, median, min, and max (1st and 3rd quartiles ok too) for each of the data columns (should be cols 5 - 11).  You can do this many ways, but you have the tools to do it in one, very clean line of code!
+7. Once you are certain your new data frame has all the proper rows and columns, write the data frame out to a .csv file.  We will be using this file as input later, so keep track of where you put it.
 
 
 

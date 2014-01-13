@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=9" >
 
-<title>Functions, Control Structures and Documentation</title>
+<title>Data Manipulation Exercise</title>
 
 <style type="text/css">
 body, td {
@@ -179,428 +179,85 @@ hljs.initHighlightingOnLoad();
 </head>
 
 <body>
-<h1>Functions, Control Structures and Documentation</h1>
+<h1>Data Manipulation Exercise</h1>
 
-<p><em>Note: This lesson is mostly from Karthik Ram&#39;s <a href="https://github.com/swcarpentry/2013-10-09-canberra">material from the Canberra Software Carpentry R Bootcamp</a>.  Anything good is there becuase of Karthik.  Mistakes are all mine.</em></p>
+<h1>Just making sure we still have the data</h1>
 
-<h1>Lesson Index:</h1>
+<pre><code class="r">siurl &lt;- &quot;http://water.epa.gov/type/lakes/assessmonitor/lakessurvey/upload/NLA2007_SampledLakeInformation_20091113.csv&quot;
+wqurl &lt;- &quot;http://water.epa.gov/type/lakes/assessmonitor/lakessurvey/upload/NLA2007_WaterQuality_20091123.csv&quot;
+luurl &lt;- &quot;http://water.epa.gov/type/lakes/assessmonitor/lakessurvey/upload/NLA2007_Buffer_Landuse_Metrics_20091022.csv&quot;
 
-<ul>
-<li><a href="#functions">Functions</a></li>
-<li><a href="#control-strucutres">Control Structures</a></li>
-<li><a href="#documentation">Documentation</a></li>
-<li><a href="#function-exercise">Exercise</a></li>
-</ul>
-
-<h1>Functions</h1>
-
-<p>Functions represent one of the most powerful features of the R language. By creating functions, you can go past just using what others have written and create your own.</p>
-
-<p>After a while operations at the interactive prompt are not enough. You have special operations that need to be grouped together. That&#39;s when you&#39;ll need to write functions.</p>
-
-<ul>
-<li>Basic of how to write functions</li>
-<li>Lexical scoping and scoping rules</li>
-<li>Example</li>
-</ul>
-
-<p>Functions are created using the <code>function()</code> directive.
-They are stored as any other R object.  They are of class &ldquo;function&rdquo;</p>
-
-<p><strong>Basic syntax</strong></p>
-
-<pre><code>func &lt;- function(&lt;take some input&gt;)  {
-    # run a whole bunch of your code
-}
+si &lt;- read.csv(siurl)
+wq &lt;- read.csv(wqurl)
+lu &lt;- read.csv(luurl)
 </code></pre>
 
-<p>Functions are first class objects. Treat them the same way as any other objects. This means you can pass them to other functions (as you would do with say vectors). Very useful feature for statistical analyses. We can also nest functions inside each other.</p>
+<h1>Subset data into just what we want</h1>
 
-<p>Return value is the very last R expression to be evaluated. No special expression for returning although you can use return()</p>
-
-<p>Functions have named arguments and these can have default values. Arguments used inside a function definition are called formal arguments.</p>
-
-<p>use <code>formals()</code> to see what they are.</p>
-
-<p>Not every function makes use of all formal arguments.</p>
-
-<p>Function arguments can be missing or might just use default values. Formal arguments are included in the function definition.</p>
-
-<p>If a function has 10 arguments, you don&#39;t have to specify all of them. </p>
-
-<p>R function arguments can be matched positionally or by name.</p>
-
-<pre><code class="r">args(sd)
+<pre><code class="r">si_subset &lt;- si[c(&quot;SITE_ID&quot;, &quot;VISIT_NO&quot;, &quot;SITE_TYPE&quot;, &quot;STATE_NAME&quot;)]
+wq_subset &lt;- wq[c(&quot;SITE_ID&quot;, &quot;NTL&quot;, &quot;PTL&quot;, &quot;CHLA&quot;)]
+lu_subset &lt;- lu[c(&quot;SITE_ID&quot;, &quot;PCT_DEVELOPED_BUFR&quot;, &quot;PCT_FOREST_BUFR&quot;, &quot;PCT_AGRIC_BUFR&quot;, 
+    &quot;PCT_WETLAND_BUFR&quot;)]
 </code></pre>
 
-<p>Takes x, a vector of data. 
-Default is <code>na.rm</code> is false.
-So you don&#39;t have to do anything.</p>
+<h1>Create a single data frame</h1>
 
-<pre><code class="r">dat &lt;- rnorm(1000)
-sd(dat)  # Matched positionally
-sd(x = dat)  # matched by name
-sd(x = dat, na.rm = FALSE)
-# When naming you can switch them but not recommended
-sd(na.rm = FALSE, dat)
+<pre><code class="r">nlam1 &lt;- merge(si_subset, wq_subset, by = &quot;SITE_ID&quot;)
+nla &lt;- merge(nlam1, lu_subset, by = &quot;SITE_ID&quot;)
 </code></pre>
 
-<p>Even though it&#39;s allowed, don&#39;t switch positions on names.</p>
+<h1>How many rows and columns in new data frame?</h1>
 
-<p>See </p>
-
-<pre><code class="r">args(lm)
+<pre><code class="r">nrow(nla)
 </code></pre>
 
-<p>It&#39;s good to name arguments when you have a long list to work through. Arguments can also be partially matched.</p>
-
-<pre><code class="r">add &lt;- function(x = 1, y = 2) {
-    x + y
-}
+<pre><code>## [1] 1590
 </code></pre>
 
-<p>R does what&#39;s known as lazy evaluation. Arguments to functions are lazily evaluated. Common model in many languages. Only evaluated as they are needed.</p>
-
-<pre><code class="r">add &lt;- function(a, b) {
-    a^2
-}
+<pre><code class="r">ncol(nla)
 </code></pre>
 
-<p>The function call never uses b. So calling <code>f(10)</code> will not produce an error because <code>a</code> got positionally matched.</p>
-
-<p>Another example of lazy evaluation</p>
-
-<pre><code class="r">add &lt;- function(a, b) {
-    print(a^2)
-    print(b^2)
-}
+<pre><code>## [1] 11
 </code></pre>
 
-<p><code>add(10)</code> will work until it reaches a point where the function will break.</p>
+<h1>Calculate mean, median, max &hellip; for each of the columns</h1>
 
-<p><strong>The three dot operator.</strong></p>
-
-<p><code>...</code> are used when extending another function and you don&#39;t want to copy the entire list of arguments from the original function.</p>
-
-<p>Also useful when the number of arguments cannot be known in advance. For example <code>paste()</code> takes a variable number of arguments. Function does not know how many things it&#39;s going to paste together.</p>
-
-<h2>Writing functions in R</h2>
-
-<p>If you have to repeat the same few lines of code more than once, then you really need to write a function. Functions are a fundamental building block of R. You use them all the time in R and it&#39;s not that much harder to string functions together (or write entirely new ones from scratch) to do more.</p>
-
-<ul>
-<li>R functions are objects just like anything else. </li>
-<li>By default, R function arguments are lazy - they&#39;re only evaluated if they&#39;re actually used:</li>
-<li>Every call on a R object is almost always a function call.</li>
-</ul>
-
-<h3>Basic components of a function</h3>
-
-<ul>
-<li>The <code>body()</code>, the code inside the function.</li>
-<li>The <code>formals()</code>, the &ldquo;formal&rdquo; argument list, which controls how you can call the function.</li>
-<li>The <code>environment()</code> which determines how variables referred to inside the function are found.</li>
-<li><code>args()</code> to list arguments.</li>
-</ul>
-
-<pre><code class="r">f &lt;- function(x) x
-f
-
-formals(f)
-
-environment(f)
+<pre><code class="r">apply(nla[, 5:11], 2, summary)
 </code></pre>
 
-<h2>More on environments</h2>
-
-<p>Variables defined inside functions exist in a different environment than the global environment. However, if a function is not defined inside one, it will look one level above.</p>
-
-<p>For example.</p>
-
-<pre><code>x &lt;- 2
-g &lt;- function() { 
-  y &lt;- 1
-  c(x, y)
-}  
-g()
-rm(x, g)
+<pre><code>## $NTL
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##       5     312     579    1220    1180   26100 
+## 
+## $PTL
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##       0       9      27     122      99    4860 
+## 
+## $CHLA
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##     0.1     2.8     7.8    31.8    27.5   936.0       5 
+## 
+## $PCT_DEVELOPED_BUFR
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00    0.30    3.50    7.22    8.50   78.20 
+## 
+## $PCT_FOREST_BUFR
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     0.0     1.7    16.0    22.7    38.0    86.9 
+## 
+## $PCT_AGRIC_BUFR
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00    0.00    1.20    7.05    8.60   81.30 
+## 
+## $PCT_WETLAND_BUFR
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00    0.30    3.10    8.06   10.70   78.50
 </code></pre>
 
-<p>Same rule applies for nested functions.</p>
+<h1>Write data to .csv</h1>
 
-<p>A first useful function.</p>
-
-<pre><code class="r">first &lt;- function(x, y) {
-    z &lt;- x + y
-    return(z)
-}
+<pre><code class="r">write.csv(nla, &quot;nla.csv&quot;, row.names = FALSE)
 </code></pre>
-
-<pre><code class="r">add &lt;- function(a, b) {
-    return(a + b)
-}
-
-add(c(1, 2, 3, 4), 1)
-</code></pre>
-
-<h2>What does this function return?</h2>
-
-<pre><code class="r">x &lt;- 5
-f &lt;- function() {
-    y &lt;- 10
-    c(x = x, y = y)
-}
-f()
-</code></pre>
-
-<h2>What does this function return?</h2>
-
-<pre><code class="r">x &lt;- 5
-g &lt;- function() {
-    x &lt;- 20
-    y &lt;- 10
-    c(x = x, y = y)
-}
-g()
-</code></pre>
-
-<h2>What does this function return??</h2>
-
-<pre><code class="r">x &lt;- 5
-h &lt;- function() {
-    y &lt;- 10
-    i &lt;- function() {
-        z &lt;- 20
-        c(x = x, y = y, z = z)
-    }
-    i()
-}
-h()
-</code></pre>
-
-<h2>Functions with pre defined values</h2>
-
-<pre><code class="r">temp &lt;- function(a = 1, b = 2) {
-    return(a + b)
-}
-</code></pre>
-
-<h2>Functions usually return the last value it computed</h2>
-
-<pre><code>f &lt;- function(x) {
-  if (x &lt; 10) {
-    0
-  } else {
-    10
-  }
-}
-f(5)
-f(15)
-</code></pre>
-
-<h1>Control Structures</h1>
-
-<p>These allow you to control the flow of execution of a script typically inside of a function.
-Common ones include:</p>
-
-<ul>
-<li>if, else</li>
-<li>for</li>
-<li>while</li>
-<li>repeat</li>
-<li>break</li>
-<li>next</li>
-<li>return</li>
-</ul>
-
-<p>We don&#39;t use these while working with R interactively but rather inside functions. </p>
-
-<h2>If/else</h2>
-
-<pre><code class="r">if(condition) {
-    # do something 
-} else { 
-    # do something else
-    }
-}
-</code></pre>
-
-<p>e.g. </p>
-
-<pre><code class="r">x &lt;- 1:15
-if (sample(x, 1) &lt;= 10) {
-    print(&quot;x is less than 10&quot;)
-} else {
-    print(&quot;x is greater than 10&quot;)
-}
-</code></pre>
-
-<p><strong>Shorthand for ifelse</strong></p>
-
-<p><code>ifelse(sample(x, 1) &lt;10, &quot;x less than 10&quot;, &quot;x greater than 10&quot;)</code></p>
-
-<p>Other valid ways of writing if/else</p>
-
-<pre><code class="r">if (sample(x, 1) &lt; 10) {
-    y &lt;- 5
-} else {
-    y &lt;- 0
-}
-</code></pre>
-
-<pre><code class="r">y &lt;- if (sample(x, 1) &lt; 10) {
-    5
-} else {
-    0
-}
-</code></pre>
-
-<h2>for</h2>
-
-<p>For loops work on an iterable variable and assign successive values till the end of a sequence.</p>
-
-<pre><code class="r">for (i in 1:10) {
-    print(i)
-}
-</code></pre>
-
-<pre><code class="r">x &lt;- c(&quot;apples&quot;, &quot;oranges&quot;, &quot;bananas&quot;, &quot;strawberries&quot;)
-
-for (i in x) {
-    print(x[i])
-}
-
-for (i in 1:4) {
-    print(x[i])
-}
-
-for (i in seq(x)) {
-    print(x[i])
-}
-
-for (i in 1:4) print(x[i])
-</code></pre>
-
-<p>Nested loops</p>
-
-<pre><code class="r">m &lt;- matrix(1:10, 2)
-for (i in seq(nrow(m))) {
-    for (j in seq(ncol(m))) {
-        print(m[i, j])
-    }
-}
-</code></pre>
-
-<h2>While</h2>
-
-<pre><code>i &lt;- 1
-while(i &lt; 10) {
-    print(i)
-    i &lt;- i + 1
-}
-</code></pre>
-
-<p>Be sure there is a way to exit out of a while loop.</p>
-
-<h2>Repeat and break</h2>
-
-<pre><code class="r">repeat {
-    # simulations; generate some value have an expectation if within some range,
-    # then exit the loop
-    if ((value - expectation) &lt;= threshold) {
-        break
-    }
-}
-</code></pre>
-
-<h2>Next</h2>
-
-<pre><code class="r">for (i in 1:20) {
-    if (i%%2 == 1) {
-        next
-    } else {
-        print(i)
-    }
-}
-</code></pre>
-
-<p>This loop will only print even numbers and skip over odd numbers. In the afternoon we&#39;ll learn other functions that will help us avoid these types of slow control flows as much as possible (mostly the while and for loops).</p>
-
-<h1>Documentation</h1>
-
-<p>Anyone who has worked with computers at any level for any period of time will attest to the fact that keeping track of your workflow and understanding what was done and why gets problematic quickly.  Tomorrow we will introduce a solution of this that deals with managing multiple versions (i.e. git).  </p>
-
-<p>But, at an even more basic level than versioning, is the issue of being able to read a piece of code and understand what it is doing.  The primary solution for creating understandable code is documentation and you already have been doing some of this if you have been using comment tags (<code>#</code>).  </p>
-
-<p>These are simple to implement, can be placed anywhere in your code.  </p>
-
-<p>For instance:</p>
-
-<pre><code class="r"># Here is an example of a simple comment This function, takes and argment
-# and prints it to the screen
-x &lt;- function(arg) {
-    print(arg)  # Printing the arg
-}
-
-x(&quot;Documentation is cool!&quot;)
-
-</code></pre>
-
-<p>These simple comments are likely enough just for scripts, but as you begin to use functions it better to follow a more standard format.  One such format that is widely used in package development is <a href="http://roxygen.org">Roxygen</a>, a literate programming .  Its current implementation in R is with <code>roxygen2</code>.  It allows for simple documenting of code and easily converting that code into manual pages.  We won&#39;t go that far, but learning to document the basics with Roxygen style comments (<code>#&#39;</code>) and tags (<code>@</code>) will put you much closer to being able to develop packages.</p>
-
-<p>Roxygen Comment and Tags</p>
-
-<pre><code class="r">#&#39; This is an Roxygen comment!  Pretty difficult, eh?
-#&#39; @param This is an Roxygen tag
-</code></pre>
-
-<p>So to use these to document a function would look like:</p>
-
-<pre><code class="r">#&#39; My Simple Function
-#&#39;
-#&#39; This function takes an argument and prints it to the screen
-#&#39; 
-#&#39; @param args This is an input argument.  May be of any type
-#&#39; 
-#&#39; @return returns an object of the same type as the input.
-#&#39;
-#&#39; @export 
-#&#39;
-#&#39; @examples
-#&#39; x(&#39;Roxygen style documentation is cooler&#39;)
-#&#39; x(&#39;#&#39;&#39;&gt;&#39;#&#39;)
-
-x &lt;- function(arg) {
-    # You can still use regular comments, if you like.  This is probably a good
-    # idea, too.
-    return(arg)
-}
-
-x(&quot;Roxygen style documentation is cooler&quot;)
-x(&quot;#&#39;&quot; &gt; &quot;#&quot;)
-</code></pre>
-
-<p>** note: <code>@export</code> and <code>@examples</code> are important for package development.  I only include them here to let you know there are many tags you can use **</p>
-
-<p>So, while it takes a bit more time to document as you write, it will pay dividends in the future as your properly documented code will be</p>
-
-<ul>
-<li>Easier for you to understand when you come back to it later</li>
-<li>Easier for others to understand</li>
-<li><em>MUCH</em> easier to convert a collection of functions into a package</li>
-</ul>
-
-<p>To find out more, Hadley Wickham&#39;s <a href="http://adv-r.had.co.nz/Documenting-functions.html">Advanced R Programming</a> is a great resource.</p>
-
-<h1>Function Exercise</h1>
-
-<p>Continuing with our NLA example, this exercise will have you create several functions that work on that dataset.</p>
-
-<ol>
-<li><p>Create a function (with proper documentation, but no need to inclue <code>@export</code> or <code>@examples</code>) that takes a vector as input and returns it&#39;s mean.</p></li>
-<li><p>Create another function (again with good documentation), that allows us to deal with <code>NA</code> values (hint: think <code>mean()&#39; and</code>&hellip;).</p></li>
-<li><p>Create another function (do I have to say it?) that allows you to calculate the mean and standard deviation (hint: <code>sd()</code>) of the input and still deals with <code>NA</code>.  You will probably want to have a third argument in your function and will need to use a control structure from above.</p></li>
-</ol>
 
 </body>
 

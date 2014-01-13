@@ -487,6 +487,5 @@ Continuing with our NLA example, this exercise will have you create several func
 
 3. Create another function (do I have to say it?) that allows you to calculate the mean and standard deviation (hint: `sd()`) of the input and still deals with `NA`.  You will probably want to have a third argument in your function and will need to use a control structure from above.
 
-4. Now use this function you have created to get mean and standard deviation of  two of the data columns in your NLA data frame you created earlier.  If you no longer have that in memory, you can use `read.csv()` and the .csv file you wrote to disk.
 
 
