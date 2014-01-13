@@ -4,9 +4,9 @@
 
 - What is version control?
 - Motivation for version control
-- Git: create a local repo
-- Git: configuration
-- Git: three stages for your files' life.
+- Git configuration
+- Creating a local repo
+- Git: working dir, stage, history
 - Git: add, checkout, commit, and reset
 - Git: log, status, diff
 - Git: branch and merge
@@ -47,42 +47,6 @@ paper with remote collaborators?
 Version control fixes all this, so you will get more time to focus on your
 research.
 
-## Creating a local repo 
-
-In version control lingo, a repository, shortened to repo, is a directory in
-your filesystem that is under version control.
-
-To create a local repo, use `git init` in the directory you want to transform
-into a repo.
-
-A repo is just a regular directory with an additional hidden folder named
-`.git`.
-
-Let's create a repo to store our thesis. It could be also a research or
-programming project, the important thing is that it'd be fairly complex, with
-several different files.
-
-```
-$ mkdir thesis 
-$ cd thesis
-$ pwd
-```
-
-Now let's create a file in this directory, and show what's in the directory.
-
-```
-$ touch intro.txt
-$ ls -F -a
-```
-
-Now let's make it a repo 
-
-```
-$ git init
-$ ls -F -a
-$ ls -F -a .git
-```
-
 ## Git configuration
 
 As said above, one of the most interesting things about version controls system
@@ -122,6 +86,41 @@ In Windows and for Notepad installed in the standard location, use:
 $ git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
 ```
 
+## Creating a local repo 
+
+In version control lingo, a repository, shortened to repo, is a directory in
+your filesystem that is under version control.
+
+To create a local repo, use `git init` in the directory you want to transform
+into a repo.
+
+A repo is just a regular directory with an additional hidden folder named
+`.git`.
+
+Let's create a repo to store our thesis. It could be also a research or
+programming project, the important thing is that it'd be fairly complex, with
+several different files that need to be versioned.
+
+```
+$ mkdir thesis 
+$ cd thesis
+$ pwd
+```
+
+Now let's create a file in this directory, and show what's in the directory:
+
+```
+$ touch intro.txt
+$ ls -F -a
+```
+
+Now, let's make it a repo:
+
+```
+$ git init
+$ ls -F -a
+$ ls -F -a .git
+```
 
 ## Git: working dir, stage, history.
 
@@ -131,15 +130,15 @@ chronological way, in what it's called history. The newest version in the
 history is dubbed "HEAD". Note that all versions are kept in history, not
 simply overwritten, as in a backup system as Dropbox. Although versions are
 ordered chronologically into a history, they are not simple labelled by a time
-stamp, instead versions can be annotated with a message describing the version
+stamp. Instead, versions can be annotated with a message describing the version
 contents or particularities. In fact, this is not optional, but mandatory.
 
 As versions are chronologically ordered, git keeps track only of the
-differences between them. Therefore a new version is only the list of the files
+differences between them. Therefore, a new version is only the list of the files
 that have changed from the previous one, plus the actual changes in each file.
 
 Versions are snapshots of the files in the repo, so they just catch their state
-in the particular moment you make the version. Here you have also a lot of
+in the particular moment you make the version. Here, you have also a lot of
 freedom. First, you decide which of the files in the directory are going to be
 tracked. Maybe you need to have files there, like temporary files created
 by some program, that are not really worth to track. Second, althought the
@@ -170,6 +169,7 @@ Once the files are being tracked and after making some changes, you should put
 them into the stage to make a version; for this you also use `add`
 
 ```
+$ echo "Some text for the introduction" >> intro.txt
 $ git add intro.txt
 ```
 
@@ -192,13 +192,13 @@ or just all the files you are tracking:
 $ git commit -a
 ```
 
-You can also move files down for the history to the stage or the working
+You can also move files down from the history to the stage or the working
 directory. This is useful to recover mistakes, start over from old versions, etc...
 
 To bring to your working directory the last (`HEAD`) version in history.
 
 ```
-$ git checkout HEAD --files intro.txt
+$ git checkout HEAD -- intro.txt
 ```
 
 You can bring back any other version counting back from the `HEAD`, like
@@ -209,19 +209,33 @@ To copy over the files in the stage to the working dir omit the version label,
 i.e.:
 
 ```
-$ git checkout  --files intro.txt chapter_1.txt
+$ git checkout  -- intro.txt chapter_1.txt
 ```
 
 This is equivalent to discard the changes that you made since the last time you
 have staged. 
 
 You can also bring back a version in the history directly to the stage. This is
-useful to undo a `git add`.
+useful to undo a `git add` using `reset`:
+
+```
+$ git reset -- intro.txt chapter_1.txt
+```
 
 In all the commands above, you can bring the whole version instead of selected
-files, omitting the `--files` flag. 
+files, omitting the `--` and the filenames.
 
-## Git status and log: see what's going on your repo.
+### Exercise
+
+- Create a repo for your paper, thesis, or some research project. 
+
+- Make a couple of files with some text on them. 
+
+- Make three or four commits (i.e. versions) with some meaningful commit
+messages. In one of the commit messages include the words "easter egg". (We
+will use this later.)
+
+## Git status: see what's going on your working dir and stage.
 
 Git associates a status to each of the files. You can inspect the status of
 your files in the working directory and the stage with `git status`.
@@ -238,39 +252,6 @@ $ git status
 $ echo "Some text in a new line" >> intro.txt
 $ git status
 ```
-
-## Git diff or how to see differences between versions
-
-You can see the changes in your files between versions in the history,
-the working dir or the stage.
-
-To compare two versions, e.g. the last one and the previous in the history:
-
-```
-$ git diff HEAD~1 HEAD
-```
-
-To compare a version of the history with the working directory:
-
-```
-$ git diff HEAD~1
-```
-
-To compare a version of the history with the stage:
-
-```
-$ git diff --cached HEAD~1
-```
-
-And, maybe the most useful, to compare the stage and the working directory,
-i.e. the changes that you have made but not yet staged:
-
-```
-$ git diff
-```
-
-Always `git diff` before a commit: you will know what you're commiting and write
-better commit messages.
 
 ## Git log: inspect your history
 
@@ -299,7 +280,7 @@ shows only the last 5 versions,
 ```
 $ git log --grep 'words'
 ```
-looks for 'words' in you commit messages. Very useful to find versions with
+show only commits with 'words' in the commit messages. Very useful to find versions with
 some particular changes.
 
 To make things pretty you could use:
@@ -311,13 +292,59 @@ $ git log --graph --decorate --pretty=oneline --abbrev-commit
 or 
 
 ```
-git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+$ git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
 ```
+
+### Exercise
+
+- Inspect the log of your repo. Get the short version of the hash (the label
+for the version) for a commit that includes the "easter egg".
+
+## Git diff: see differences between versions
+
+You can see the changes in your files between versions in the history,
+the working dir or the stage.
+
+To compare two versions, e.g. the last one and the previous in the history:
+
+```
+$ git diff HEAD~1 HEAD
+```
+
+To compare a version of the history with the working directory:
+
+```
+$ git diff HEAD~1
+```
+
+To compare a version of the history with the stage:
+
+```
+$ git diff --cached HEAD~1
+```
+
+You don't have to count back from `HEAD` to find a version, you can always use
+the hashes that label each commit using `git log` as in the previous exercise.
+
+And, maybe the most useful, to compare the stage and the working directory,
+i.e. the changes that you have made but not yet staged:
+
+```
+$ git diff
+```
+
+Always `git diff` before a commit: you will know what you're commiting and write
+better commit messages.
+
+### Exercise
+
+Find the differences in all the files between the last version and the one with
+"easter egg" in the commit message.
 
 ## Git: branching and merging
 
 Although the point of git is to have all your versions ordered, sometimes it's
-useful to break up the history. These parallel histories are called branches in
+useful to split up the history. These parallel histories are called branches in
 `git`.
 
 All repos have a `master` branch by default. You can create branches for
@@ -341,6 +368,11 @@ all bibliographic references are OK, etc... If someone asks you for a copy of
 your thesis, you pull it out from the master copy and you know it's gonna look
 good without having to do it every time you commit to the development
 branch.
+
+You can see an example of a scheme of branches that you may use for inspiration
+in the next figure:
+
+![An example of branching in programming] (./images/branching_model_from_nvie.jpg)
 
 To create a new branch, called `development`:
 
@@ -380,8 +412,52 @@ version both branches have in common.
 To be able to do the merge you will have to manually resolve the conflict,
 saying which of the versions of the file you want to keep.
 
+### Exercise
 
+Let's create a branch, play with it, create a conflict, and fix it.
 
+#### Branch and merge.
 
+- Create a branch, called `develop`, in your repo. Check it out using `git
+checkout develop`. Are the contents of the two branches the same?
+
+- In the `develop` branch, create a new file, put some text on it, and make a
+commit. Check with `ls -F -a`, `git log`, and `git status` whether you file is in there.
+
+- Go back to the `master`. Check with `ls -F -a`, `git log`, and `git status` whether you file is in there.
+  Explain why.
+
+- Merge the `develop` branch back into `master`.
+
+- Check that the two branches have the same versions of the files.
+
+Now you could delete your `develop` branch using `git del develop`, but we keep
+it.
+
+#### Conflicts.
+
+- In the `master` branch, change the file you just created in the previous
+exercise by adding a new line with some text. Make a commit.
+
+- In the `develop` branch, change the **same+* file by adding the **same** line
+but with a word changed. Make a commit.
+
+- Merge the `develop` branch back into `master`.
+
+- To fix the conflict you have to edit the conflicted file, cleaning it and
+choosing what to keep. Then you have to make a new commit.
+
+- Try to merge again.
+
+# References
+
+- The branching model was taken from [this blog
+post](http://nvie.com/posts/a-successful-git-branching-model/). It's far more
+advanced compared to what we cover here, but it may inspire you to create a
+simpler system that fits your needs.
+
+- Git has a lot of commands, and becomes hard to understand what each command
+does. [This repo has visual explanations for the most used
+commands](http://marklodato.github.io/visual-git-guide/index-en.html)
 
 
