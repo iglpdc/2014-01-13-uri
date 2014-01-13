@@ -18,7 +18,7 @@ can upgrade at any time to a paid account that admits private repos.
 There are other websites that offer similar services, but Github is probably
 the most popular.
 
-Go to http://github.com and get a free account. You are going to need the
+Go to [Github](http://github.com) and get a free account. You are going to need the
 password often in the class, so don't forget it.
 
 ## Put your local repo in Github
