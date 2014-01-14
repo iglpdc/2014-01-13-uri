@@ -14,18 +14,18 @@
 ## Why testing?
 
 Common sense tells you that things should be tested before use them for real.
-Otherwise, things may go wrong. However, some people seem to disagree with this
-view. They think that:
+Otherwise, things may go wrong. Lack of software testing have ruined important
+projects:
 
-- you can land a vehicle in Mars [without testing your
+- you cannot land a vehicle in Mars [without testing your
 software](http://mars.jpl.nasa.gov/msp98/news/mco991110.html),
-- you can shape
+- you cannot shape
 global economy  [without testing your
 software](http://www.businessweek.com/articles/2013-04-18/economists-spreadsheet-error-upends-the-debt-debate),
-- you can shoot missiles [without testing your
+- you cannot shoot missiles [without testing your
 software](http://www.ima.umn.edu/~arnold/disasters/patriot.html).
   
-*Don't be that guy!* **Test your software!**
+**Test your software!**
 
 ## The most popular bug in science: division gone bad 
 
@@ -39,14 +39,14 @@ whether it will float:
 
 The result is 1.5, *right?* In most programming languages, including Python,
 C/C++, Fortran, the computer will output `3/2 = 1`! Your design parameters are
-off by 50%, and your [submarine
-sinks.](http://www.telegraph.co.uk/news/worldnews/europe/spain/10073951/2-billion-Spanish-navy-submarine-will-sink-to-bottom-of-sea.html)
+off by 50%, and your submarine sinks.
 
 The computer is doing nothing wrong. This is valid code and the expected
 result. In those programming languages, if you divide two integers the `/`
 operator means integer division and `3/2 = 1`. 
 
 **Test your software.**
+
 
 ## Why people don't test code?
 
@@ -280,9 +280,9 @@ that is, the part that is outside the curly brakets: name and list of
 arguments. Pick a name that fits your sentence. Don't write anything in the
 function's body yet.
 
-- Thrid, as you know the name of the function, its arguments, and its return
-value, you can write some tests. Go for tests picking weird situations, and
-other for which you know the result for sure by other method. Usually, you will
+- Third, as you know the name of the function, its arguments, and its return
+value, you can write some tests. Go for some tests picking weird situations, and
+others for which you know the result for sure by other method. Usually, you will
 find that you have to make some decisions about your function that you didn't
 think about it. E.g. what is gonna do if an argument is a `NA`: ignore it or
 throw an error?
@@ -305,7 +305,7 @@ fun.
 
 Write a rock-solid function that solves a quadratic equation, i.e. `ax^2 + bx +
 c = 0`.  The specifications for this function are: it takes 3 parameters, the
-number `a, b, c`, and returns a vector with two numbers, the solutions of the
+numbers `a, b, c`, and returns a vector with two numbers, the solutions of the
 equation. Also:
 
 - if the `a = 0`, the equation has only one solution; your function must throw
@@ -322,8 +322,8 @@ your function as a [gist](https://gist.github.com/) in your Github account.
 We are not going to lie, even with all this, bugs will happen. *Often*. When you
 have a bug, you should use a tool, called debugger, to track it down and fix it. 
 
-What makes bugs hard to find is that they are valid code, so the computer is
-happy to run it. It's just the code doesn't do what you want it to do. 
+What makes bugs hard to find is that often they are valid code, so the computer is
+happy to run it. It's just the code doesn't do what you want.
 
 A debugger is a tool that executes you code line by line, allowing to inspect
 all the variables that your computer is using, to see where it's doing
