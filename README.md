@@ -40,7 +40,6 @@ This is the repo for the Software Carpentry R Bootcamp at the University of Rhod
 | _LUNCH_                                                                                   | 01/14/2014 | 12:00 PM - 12:45 PM |               |
 | [Testing and Debugging with R](https://github.com/iglpdc/2014-01-13-uri/tree/gh-pages/07-testing)                                                         | 01/14/2014 | 12:45 PM - 2:30 PM  | Ivan Gonzalez |
 | _BREAK_                                                                                   | 01/14/2014 | 2:30 PM - 2:45 PM   |               |
-<<<<<<< HEAD
 | [Introduction to Databases](https://github.com/iglpdc/2014-01-13-uri/tree/master/08-databases) | 01/14/2014 | 2:45 PM - 2:30 PM | Patrick Fuller |
 
 #### WEDNESDAY JANUARY 15, 2014
